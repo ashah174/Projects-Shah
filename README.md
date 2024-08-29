@@ -12,8 +12,15 @@ Hello! I'm Anokhee Shah, a Computer Science student passionate about coding, pro
 Projects
 
 1. Movie Recommender
-Description: A brief overview of what the project is about. Include the main features or objectives of the project.
+Description: Our team developed a personalized movie recommender system using C++ and Visual Studio Code. It pulls data from the "IMDB Top 250 Movies" database, allowing users to sign up, customize their profiles with preferences, and receive tailored movie recommendations. The system offers dynamic updates, search and sort options, and a user-friendly interface to enhance the movie selection experience.
+Technologies Used: C++, VS Code, Database for Kaggle
 
-Technologies Used: 
+GitHub Repository: https://github.com/ashah174/Projects-Shah.git
 
-GitHub Repository: [Link to the repository]
+Education
+
+University of California, Riverside
+B.S. in Computer Science
+Expected 2026
+Relevant Courses: Data Oriented Introduction to Computing, C++ for Programming, First Year Calculus, Logic Design, Machine Organization & Assembly Language Programming, Software
+Construction
