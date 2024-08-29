@@ -4,7 +4,8 @@ About Me
 
 Hello! I'm Anokhee Shah, a Computer Science student passionate about coding, problem-solving, and technology. My interests lie in software development, algorithms, artificial intelligence, and data science. I'm always eager to learn new technologies and apply my skills to solve real-world problems.
 
-🌱 Currently learning: [List of technologies or concepts you're currently exploring, e.g., "Machine Learning, React, Docker"]
+🌱 Currently learning: C++, Machine Learning, Software Construction
+
 🎓 Pursuing a degree in: B.S. in Computer Science
 💼 Looking for: Internships
 📫 How to reach me: anokhee06@gmail.com or https://www.linkedin.com/in/anokhee-shah-b8b540304/
