@@ -7,7 +7,9 @@ Hello! I'm Anokhee Shah, a Computer Science student passionate about coding, pro
 🌱 Currently learning: C++, Machine Learning, Software Construction
 
 🎓 Pursuing a degree in: B.S. in Computer Science
+
 💼 Looking for: Internships
+
 📫 How to reach me: anokhee06@gmail.com or https://www.linkedin.com/in/anokhee-shah-b8b540304/
 
 Projects
@@ -21,7 +23,10 @@ GitHub Repository: https://github.com/ashah174/Projects-Shah.git
 Education
 
 University of California, Riverside
+
 B.S. in Computer Science
+
 Expected 2026
+
 Relevant Courses: Data Oriented Introduction to Computing, C++ for Programming, First Year Calculus, Logic Design, Machine Organization & Assembly Language Programming, Software
 Construction
