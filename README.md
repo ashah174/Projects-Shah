@@ -16,6 +16,7 @@ Projects
 
 1. Movie Recommender
 Description: Our team developed a personalized movie recommender system using C++ and Visual Studio Code. It pulls data from the "IMDB Top 250 Movies" database, allowing users to sign up, customize their profiles with preferences, and receive tailored movie recommendations. The system offers dynamic updates, search and sort options, and a user-friendly interface to enhance the movie selection experience.
+
 Technologies Used: C++, VS Code, Database for Kaggle
 
 GitHub Repository: https://github.com/ashah174/Projects-Shah.git
