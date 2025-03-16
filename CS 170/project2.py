@@ -1,108 +1,140 @@
 import numpy as np
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import LeaveOneOut
+import os
+import time
 
-# Load dataset from file
-def load_data(filename):
-    data = np.loadtxt(filename)
-    X = data[:, 1:]  # Features
-    y = data[:, 0]   # Class labels
-    return X, y
+def load_data(file_path):
+    """Load data from a file."""
+    return np.loadtxt(file_path)
 
-# Evaluate accuracy using Leave-One-Out Cross Validation
-def evaluate_accuracy(X, y):
-    loo = LeaveOneOut()
-    correct = 0
-    for train_idx, test_idx in loo.split(X):
-        model = KNeighborsClassifier(n_neighbors=1)
-        model.fit(X[train_idx], y[train_idx])
-        if model.predict(X[test_idx]) == y[test_idx]:
-            correct += 1
-    return correct / len(y)
+def nearest_neighbor_classifier(data, features):
+    """Nearest Neighbor Classifier with selected features."""
+    number_correctly_classified = 0
+    
+    for i in range(data.shape[0]):
+        object_to_classify = data[i, features]
+        label_object_to_classify = data[i, 0]
+        nearest_neighbor_distance = np.inf
+        nearest_neighbor_location = np.inf
+        
+        for k in range(data.shape[0]):
+            if k != i:
+                distance = np.sqrt(np.sum((object_to_classify - data[k, features]) ** 2))
+                if distance < nearest_neighbor_distance:
+                    nearest_neighbor_distance = distance
+                    nearest_neighbor_location = k
+                    nearest_neighbor_label = data[nearest_neighbor_location, 0]
+        
+        if label_object_to_classify == nearest_neighbor_label:
+            number_correctly_classified += 1
+    
+    accuracy = number_correctly_classified / data.shape[0]
+    return accuracy
 
-# Forward Selection
-def forward_selection(X, y, max_features=None):
-    n_features = X.shape[1]
-    selected_features = []
-    best_accuracy = 0
-
+def forward_selection(data):
+    """Forward Selection Algorithm."""
     print("\nBeginning Forward Selection search.")
+    num_features = data.shape[1] - 1  # Exclude the class label
+    best_features = []
+    best_accuracy = 0
     
-    for _ in range(n_features):
-        best_feature = None
-        for i in range(n_features):
-            if i in selected_features:
-                continue
-            temp_features = selected_features + [i]
-            acc = evaluate_accuracy(X[:, temp_features], y)
-            print(f"Using feature(s) {temp_features} accuracy is {acc * 100:.1f}%")
-            if acc > best_accuracy:
-                best_accuracy = acc
-                best_feature = i
-
-        if best_feature is not None:
-            selected_features.append(best_feature)
-            print(f"Feature set {selected_features} was best, accuracy is {best_accuracy * 100:.1f}%")
-
-        if max_features and len(selected_features) >= max_features:
-            print(f"Max feature set reached: {max_features}")
-            break
-
+    for i in range(num_features):
+        best_current_accuracy = 0
+        best_current_feature = None
+        
+        for feature in range(num_features):
+            if feature not in best_features:
+                current_features = best_features + [feature]
+                accuracy = nearest_neighbor_classifier(data, current_features)
+                print(f'Using feature(s) {current_features} accuracy is {accuracy * 100:.1f}%')
+                
+                if accuracy > best_current_accuracy:
+                    best_current_accuracy = accuracy
+                    best_current_feature = feature
+        
+        if best_current_accuracy > best_accuracy:
+            best_accuracy = best_current_accuracy
+            best_features.append(best_current_feature)
+            print(f'Feature set {best_features} was best, accuracy is {best_accuracy * 100:.1f}%')
+        else:
+            break  # Stop if adding more features doesn't improve accuracy
+    
     print("\nFinished Forward Selection!")
-    return selected_features
+    return best_features, best_accuracy
 
-# Backward Elimination
-def backward_elimination(X, y, max_features=None):
-    selected_features = list(range(X.shape[1]))
-    best_accuracy = evaluate_accuracy(X[:, selected_features], y)
-
+def backward_elimination(data):
+    """Backward Elimination Algorithm."""
     print("\nBeginning Backward Elimination search.")
-    while len(selected_features) > 1:
-        worst_feature = None
-        for i in selected_features:
-            temp_features = selected_features.copy()
-            temp_features.remove(i)
-            acc = evaluate_accuracy(X[:, temp_features], y)
-            print(f"Using feature(s) {temp_features} accuracy is {acc * 100:.1f}%")
-            if acc > best_accuracy:
-                best_accuracy = acc
-                worst_feature = i
-        if worst_feature is not None:
-            selected_features.remove(worst_feature)
-            print(f"Remaining features: {selected_features}, accuracy is {best_accuracy * 100:.1f}%")
-
-        if max_features and len(selected_features) <= max_features:
-            print(f"Min feature set reached: {max_features}")
-            break
-
+    num_features = data.shape[1] - 1  # Exclude the class label
+    best_features = list(range(num_features))  # Start with all features
+    best_accuracy = nearest_neighbor_classifier(data, best_features)
+    print(f'Using all features {best_features} accuracy is {best_accuracy * 100:.1f}%')
+    
+    for i in range(num_features):
+        worst_current_accuracy = 1.0
+        worst_current_feature = None
+        
+        for feature in best_features:
+            current_features = best_features.copy()
+            current_features.remove(feature)
+            accuracy = nearest_neighbor_classifier(data, current_features)
+            print(f'Using feature(s) {current_features} accuracy is {accuracy * 100:.1f}%')
+            
+            if accuracy > worst_current_accuracy:
+                worst_current_accuracy = accuracy
+                worst_current_feature = feature
+        
+        if worst_current_accuracy >= best_accuracy:
+            best_accuracy = worst_current_accuracy
+            best_features.remove(worst_current_feature)
+            print(f'Feature set {best_features} was best, accuracy is {best_accuracy * 100:.1f}%')
+        else:
+            break  # Stop if removing more features doesn't improve accuracy
+    
     print("\nFinished Backward Elimination!")
-    return selected_features
+    return best_features, best_accuracy
 
-# Main function
 def main():
+    """Main function to run the program."""
     print("Welcome to Anokhee Shah's Feature Selection Algorithm.")
-    filename = input("Type in the name of the file to test: ")
-    X, y = load_data(filename)
-
-    print(f"\nThis dataset has {X.shape[1]} features (not including the class attribute), with {X.shape[0]} instances.")
+    file_path = input("Type in the name of the file to test: ")
     
-    print("\nRunning nearest neighbor with all features, using 'leaving-one-out' evaluation, I get an")
-    accuracy = evaluate_accuracy(X, y)
-    print(f"accuracy of {accuracy * 100:.1f}%\n")
+    if not os.path.exists(file_path):
+        print("File does not exist. Please check the path and try again.")
+        return
     
-    choice = int(input("Type the number of the algorithm you want to run:\n1) Forward Selection\n2) Backward Elimination\n"))
+    # Load the data
+    data = load_data(file_path)
+    print(f'\nThis dataset has {data.shape[1] - 1} features (not including the class attribute), with {data.shape[0]} instances.')
     
-    max_features = 5  # Optional: Set a limit to the number of features to select, e.g., 5
+    # Run nearest neighbor with all features
+    start_time = time.time()
+    accuracy = nearest_neighbor_classifier(data, list(range(1, data.shape[1])))
+    end_time = time.time()
+    print(f"Running nearest neighbor with all features, using 'leaving-one-out' evaluation, I get an accuracy of {accuracy * 100:.1f}%")
+    print(f"Time taken: {end_time - start_time:.4f} seconds")
     
-    if choice == 1:
+    # Prompt the user to choose an algorithm
+    print("\nType the number of the algorithm you want to run:")
+    print("1) Forward Selection")
+    print("2) Backward Elimination")
+    algorithm_choice = input()
+    
+    if algorithm_choice == '1':
         print("\nRunning Forward Selection...")
-        best_forward = forward_selection(X, y, max_features=max_features)
-        print(f"Best feature subset (Forward Selection): {best_forward}\n")
-
-    elif choice == 2:
+        start_time = time.time()
+        best_features, best_accuracy = forward_selection(data)
+        end_time = time.time()
+        print(f"\nBest feature subset (Forward Selection): {best_features} with accuracy {best_accuracy * 100:.1f}%")
+        print(f"Time taken: {end_time - start_time:.4f} seconds")
+    elif algorithm_choice == '2':
         print("\nRunning Backward Elimination...")
-        best_backward = backward_elimination(X, y, max_features=max_features)
-        print(f"Best feature subset (Backward Elimination): {best_backward}\n")
+        start_time = time.time()
+        best_features, best_accuracy = backward_elimination(data)
+        end_time = time.time()
+        print(f"\nBest feature subset (Backward Elimination): {best_features} with accuracy {best_accuracy * 100:.1f}%")
+        print(f"Time taken: {end_time - start_time:.4f} seconds")
+    else:
+        print("Invalid choice. Please select a valid algorithm.")
 
 if __name__ == "__main__":
     main()
