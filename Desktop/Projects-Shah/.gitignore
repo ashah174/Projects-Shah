@@ -1,0 +1,14 @@
+.DS_Store
+
+# Git configuration files
+.gitconfig
+
+# Editor backup files
+.viminfo
+.swp
+
+# Other personal files
+.Trash/
+.local/
+.zsh_history
+.zsh_sessions
