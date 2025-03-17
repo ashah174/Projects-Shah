@@ -1,6 +1,6 @@
 import numpy as np
-import time
 import matplotlib.pyplot as plt
+import time
 
 def load_data(file_path):
     """Load data from a file."""
@@ -34,8 +34,9 @@ def forward_selection(data):
     num_features = data.shape[1] - 1  # Exclude the label column
     best_features = []
     best_accuracy = 0.0
-    accuracies = []  # To store accuracy for each step
-    
+    accuracy_list = []
+    feature_sets = []
+
     print("\nBeginning Forward Selection search.")
     for i in range(num_features):
         feature_to_add = -1
@@ -54,31 +55,27 @@ def forward_selection(data):
         if best_local_accuracy > best_accuracy:
             best_accuracy = best_local_accuracy
             best_features.append(feature_to_add)
-            accuracies.append(best_accuracy)
             print(f"Feature set {best_features} was best, accuracy is {best_accuracy:.1f}%")
         else:
             print("Warning: Accuracy did not improve. Stopping forward selection.")
             break
-    
+        
+        accuracy_list.append(best_accuracy)
+        feature_sets.append(str(best_features))
+
     print("\nFinished Forward Selection!")
     print(f"Best feature subset (Forward Selection): {best_features} with accuracy {best_accuracy:.1f}%")
-    
-    # Plot the bar graph for forward selection
-    plt.bar(range(1, len(accuracies) + 1), accuracies)
-    plt.xlabel("Number of Features Selected")
-    plt.ylabel("Accuracy (%)")
-    plt.title("Forward Selection Accuracy")
-    plt.show()
-    
-    return best_accuracy
+    return feature_sets, accuracy_list
 
 def backward_elimination(data):
     """Backward elimination algorithm for feature selection."""
     num_features = data.shape[1] - 1  # Exclude the label column
     best_features = list(range(num_features))  # Start with all features
     best_accuracy = nearest_neighbor_classification(data, best_features)
-    accuracies = [best_accuracy]  # To store accuracy for each step
     
+    accuracy_list = [best_accuracy]
+    feature_sets = [str(best_features)]
+
     print("\nBeginning Backward Elimination search.")
     print(f"Using all features {best_features} accuracy is {best_accuracy:.1f}%")
     
@@ -99,23 +96,28 @@ def backward_elimination(data):
         if best_local_accuracy > best_accuracy:
             best_accuracy = best_local_accuracy
             best_features.remove(feature_to_remove)
-            accuracies.append(best_accuracy)
             print(f"Feature set {best_features} was best, accuracy is {best_accuracy:.1f}%")
         else:
             print("Warning: Accuracy did not improve. Stopping backward elimination.")
             break
-    
+        
+        accuracy_list.append(best_accuracy)
+        feature_sets.append(str(best_features))
+
     print("\nFinished Backward Elimination!")
     print(f"Best feature subset (Backward Elimination): {best_features} with accuracy {best_accuracy:.1f}%")
-    
-    # Plot the bar graph for backward elimination
-    plt.bar(range(1, len(accuracies) + 1), accuracies)
-    plt.xlabel("Number of Features Remaining")
+    return feature_sets, accuracy_list
+
+def plot_feature_selection(feature_sets, accuracies, title):
+    """Plot the feature selection process."""
+    plt.figure(figsize=(10, 5))
+    plt.bar(feature_sets, accuracies, color='gray')
+    plt.xlabel("Feature Sets")
     plt.ylabel("Accuracy (%)")
-    plt.title("Backward Elimination Accuracy")
+    plt.ylim(0, 100)
+    plt.xticks(rotation=30, ha='right')
+    plt.title(title)
     plt.show()
-    
-    return best_accuracy
 
 def main():
     """Main function to run the program."""
@@ -131,7 +133,7 @@ def main():
     start_time = time.time()
     all_features_accuracy = nearest_neighbor_classification(data, list(range(num_features)))
     end_time = time.time()
-    print(f"Running nearest neighbor with all features, using 'leaving-one-out' evaluation, I get an accuracy of {all_features_accuracy:.1f}%")
+    print(f"Running nearest neighbor with all features, using 'leave-one-out' evaluation, I get an accuracy of {all_features_accuracy:.1f}%")
     print(f"Time taken: {end_time - start_time:.4f} seconds")
     
     print("\nType the number of the algorithm you want to run:")
@@ -143,10 +145,12 @@ def main():
     
     if choice == 1:
         print("\nRunning Forward Selection...")
-        accuracy = forward_selection(data)
+        feature_sets, accuracies = forward_selection(data)
+        plot_feature_selection(feature_sets, accuracies, "Forward Selection Accuracy Over Time")
     elif choice == 2:
         print("\nRunning Backward Elimination...")
-        accuracy = backward_elimination(data)
+        feature_sets, accuracies = backward_elimination(data)
+        plot_feature_selection(feature_sets, accuracies, "Backward Elimination Accuracy Over Time")
     else:
         print("Invalid choice. Exiting.")
         return
