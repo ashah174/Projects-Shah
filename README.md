@@ -29,5 +29,4 @@ B.S. in Computer Science
 
 Expected 2026
 
-Relevant Courses: Data Oriented Introduction to Computing, C++ for Programming, First Year Calculus, Logic Design, Machine Organization & Assembly Language Programming, Software
-Construction
+Relevant Courses: Data Oriented Introduction to Computing, C++ for Programming, First Year Calculus, Logic Design, Machine Organization & Assembly Language Programming, Software Construction, Introduction to Artificial Intelligence, Theory of Automata & Formal Language, Design and Architecture,Intermediate Data Structures
