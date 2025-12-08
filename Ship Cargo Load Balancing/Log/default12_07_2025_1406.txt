@@ -1,0 +1,2 @@
+12 07 2025: 14:06 Program was started.
+12 07 2025: 14:07 Program was shut down.

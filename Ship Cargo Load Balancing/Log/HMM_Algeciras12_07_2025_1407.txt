@@ -1,0 +1,42 @@
+12 07 2025: 14:07 Program was started.
+12 07 2025: 14:07 Manifest ShipCase1.txt is opened, there are 0 containers on the ship.
+12 07 2025: 14:07 Ship is already balanced. No moves needed.
+12 07 2025: 14:07 Finished a Cycle. Manifest ShipCase1OUTBOUND.txt was written to the 
+	solutions folder, and a reminder pop-up to the operator to send the file was displayed.
+12 07 2025: 14:08 Manifest ShipCase2.txt is opened, there are 0 containers on the ship.
+12 07 2025: 14:08 Ship is already balanced. No moves needed.
+12 07 2025: 14:08 Finished a Cycle. Manifest ShipCase2OUTBOUND.txt was written to the 
+	solutions folder, and a reminder pop-up to the operator to send the file was displayed.
+12 07 2025: 14:08 Manifest ShipCase3.txt is opened, there are 2 containers on the ship.
+12 07 2025: 14:08 Balance solution found, it will require 3 moves/26 minutes.
+12 07 2025: 14:08 Step 1: Move crane from park to [01,06], (12 minutes)
+12 07 2025: 14:08 Step 2: Move 'Bikes' from [01,06] to [01,07], (1 minutes)
+12 07 2025: 14:09 Step 3: Move crane from [01,07] to park, (13 minutes)
+12 07 2025: 14:09 Finished a Cycle. Manifest ShipCase3OUTBOUND.txt was written to the 
+	solutions folder, and a reminder pop-up to the operator to send the file was displayed.
+12 07 2025: 14:09 Manifest ShipCase4.txt is opened, there are 3 containers on the ship.
+12 07 2025: 14:09 Balance solution found, it will require 5 moves/28 minutes.
+12 07 2025: 14:09 Step 1: Move crane from park to [02,02], (7 minutes)
+12 07 2025: 14:09 Step 2: Move 'Tools for JD' from [02,02] to [02,03], (1 minutes)
+12 07 2025: 14:09 Step 3: Move crane from [02,03] to [01,02], (2 minutes)
+12 07 2025: 14:09 Step 4: Move 'Carpet' from [01,02] to [01,07], (5 minutes)
+12 07 2025: 14:09 Step 5: Move crane from [01,07] to park, (13 minutes)
+12 07 2025: 14:09 Finished a Cycle. Manifest ShipCase4OUTBOUND.txt was written to the 
+	solutions folder, and a reminder pop-up to the operator to send the file was displayed.
+12 07 2025: 14:09 Manifest ShipCase5.txt is opened, there are 6 containers on the ship.
+12 07 2025: 14:09 Balance solution found, it will require 5 moves/28 minutes.
+12 07 2025: 14:09 Step 1: Move crane from park to [01,06], (12 minutes)
+12 07 2025: 14:09 Step 2: Move 'B' from [01,06] to [01,07], (1 minutes)
+12 07 2025: 14:10 Step 3: Move crane from [01,07] to [01,08], (1 minutes)
+12 07 2025: 14:10 Step 4: Move 'P' from [01,08] to [01,06], (2 minutes)
+12 07 2025: 14:10 Step 5: Move crane from [01,06] to park, (12 minutes)
+12 07 2025: 14:10 Finished a Cycle. Manifest ShipCase5OUTBOUND.txt was written to the 
+	solutions folder, and a reminder pop-up to the operator to send the file was displayed.
+12 07 2025: 14:10 Manifest HMM_Algeciras.txt is opened, there are 2 containers on the ship.
+12 07 2025: 14:10 Balance solution found, it will require 3 moves/26 minutes.
+12 07 2025: 14:10 Step 1: Move crane from park to [01,06], (12 minutes)
+12 07 2025: 14:10 Step 2: Move 'Dogwood Flooring' from [01,06] to [01,07], (1 minutes)
+12 07 2025: 14:10 Step 3: Move crane from [01,07] to park, (13 minutes)
+12 07 2025: 14:10 Finished a Cycle. Manifest HMM_AlgecirasOUTBOUND.txt was written to the 
+	solutions folder, and a reminder pop-up to the operator to send the file was displayed.
+12 07 2025: 14:10 Program was shut down.
