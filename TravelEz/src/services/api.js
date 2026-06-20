@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5001/api",
+  baseURL: import.meta.env.VITE_API_URL ||
+    "https://travelez-8rz7.onrender.com/api",
 });
 
 export const getItineraries = () => API.get("/itineraries");
