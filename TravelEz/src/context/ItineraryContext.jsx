@@ -33,9 +33,13 @@ export function ItineraryProvider({ children }) {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    if (!user) {
+    async function resetItineraries() {
       setMyItineraries([]);
       setFavorites([]);
+    }
+
+    if (!user) {
+      resetItineraries();
       return;
     }
 
@@ -141,6 +145,7 @@ export function ItineraryProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook is intentionally co-located with its provider
 export function useItineraries() {
   return useContext(ItineraryContext);
 }

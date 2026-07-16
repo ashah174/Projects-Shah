@@ -47,8 +47,12 @@ function SearchResults() {
   const search = destination.toLowerCase().trim();
 
   useEffect(() => {
-    if (!search) {
+    const clearResults = async () => {
       setDbResults([]);
+    };
+
+    if (!destination.trim()) {
+      clearResults();
       return;
     }
 

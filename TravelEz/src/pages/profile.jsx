@@ -26,21 +26,25 @@ function Profile() {
   const [profile, setProfile] = useState(defaultProfile);
 
   useEffect(() => {
-    if (!user) return;
+    const loadProfile = async () => {
+      if (!user) return;
 
-    const savedProfile =
-      JSON.parse(localStorage.getItem(`${user.email}_profile`)) || {};
+      const savedProfile =
+        JSON.parse(localStorage.getItem(`${user.email}_profile`)) || {};
 
-    setProfile({
-      name: savedProfile.name || user.displayName || "",
-      email: savedProfile.email || user.email || "",
-      image: savedProfile.image || user.photoURL || "",
-      preferences:
-        savedProfile.preferences ||
-        "Budget-friendly, cultural trips, food tours, city exploring",
-      uploaded: savedProfile.uploaded || "",
-      saved: savedProfile.saved || "",
-    });
+      setProfile({
+        name: savedProfile.name || user.displayName || "",
+        email: savedProfile.email || user.email || "",
+        image: savedProfile.image || user.photoURL || "",
+        preferences:
+          savedProfile.preferences ||
+          "Budget-friendly, cultural trips, food tours, city exploring",
+        uploaded: savedProfile.uploaded || "",
+        saved: savedProfile.saved || "",
+      });
+    };
+
+    loadProfile();
   }, [user]);
 
   if (!user) {

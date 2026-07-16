@@ -84,9 +84,13 @@ function ItineraryDetail() {
       (trip) => String(trip.id) === String(id)
     );
 
-    if (sampleTrip) {
+    const applySampleTrip = async () => {
       setItinerary(sampleTrip);
       setLoading(false);
+    };
+
+    if (sampleTrip) {
+      applySampleTrip();
       return;
     }
 
