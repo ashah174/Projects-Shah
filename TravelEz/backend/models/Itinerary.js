@@ -34,6 +34,16 @@ const itinerarySchema = new mongoose.Schema(
       default: false,
     },
 
+    ownerEmail: {
+      type: String,
+      required: true,
+    },
+
+    favoritedBy: {
+      type: [String],
+      default: [],
+    },
+
     days: [daySchema],
 
     comments: [
@@ -42,6 +52,8 @@ const itinerarySchema = new mongoose.Schema(
           type: String,
           default: "Anonymous",
         },
+
+        ownerEmail: String,
 
         rating: {
           type: Number,

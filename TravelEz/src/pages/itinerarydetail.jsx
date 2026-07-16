@@ -418,9 +418,9 @@ function ItineraryDetail() {
                     <p>{comment.text}</p>
                     <small>{new Date(comment.date).toLocaleDateString()}</small>
 
-                    {(user?.displayName === comment.username || isAdmin) && (
+                    {(user?.email === comment.ownerEmail || isAdmin) && (
                       <div className="comment-actions">
-                        {user?.displayName === comment.username && (
+                        {user?.email === comment.ownerEmail && (
                           <button
                             type="button"
                             onClick={() => startEditingComment(comment)}
